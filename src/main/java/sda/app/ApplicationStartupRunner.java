@@ -1,6 +1,7 @@
 package sda.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import sda.app.logger.HelloLogger;
@@ -16,8 +17,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
   private ILogger logger2;
   private ILogger logger3;
 
-  @Autowired
-  public ApplicationStartupRunner(ILogger logger3) {
+  public ApplicationStartupRunner(@Qualifier("heyLogger") ILogger logger3) {
     this.logger3 = logger3;
   }
 
