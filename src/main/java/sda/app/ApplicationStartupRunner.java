@@ -6,17 +6,18 @@ import org.springframework.stereotype.Component;
 import sda.app.logger.HelloLogger;
 import sda.app.logger.HeyLogger;
 import sda.app.logger.HiLogger;
+import sda.app.logger.ILogger;
 
 @Component
 public class ApplicationStartupRunner implements CommandLineRunner {
 
   @Autowired
-  private HelloLogger logger1;
-  private HiLogger logger2;
-  private HeyLogger logger3;
+  private ILogger logger1;
+  private ILogger logger2;
+  private ILogger logger3;
 
   @Autowired
-  public ApplicationStartupRunner(HeyLogger logger3) {
+  public ApplicationStartupRunner(ILogger logger3) {
     this.logger3 = logger3;
   }
 
@@ -28,7 +29,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
   }
 
   @Autowired
-  public void setLogger1(HiLogger logger2) {
+  public void setLogger1(ILogger logger2) {
     this.logger2 = logger2;
   }
 }
