@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import sda.app.logger.HelloLogger;
-import sda.app.logger.HeyLogger;
-import sda.app.logger.HiLogger;
 import sda.app.logger.ILogger;
+import sda.otherplace.ByeByeLogger;
 
 @Component
 public class ApplicationStartupRunner implements CommandLineRunner {
@@ -20,6 +18,9 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
   private ILogger logger3;
 
+  @Autowired
+  private ByeByeLogger byeByeLogger;
+
   //@Autowired
   public ApplicationStartupRunner(@Qualifier("hiLogger") ILogger logger3) {
     this.logger3 = logger3;
@@ -30,6 +31,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
     logger1.log();
     logger2.log();
     logger3.log();
+    byeByeLogger.log();
   }
 
   @Autowired
