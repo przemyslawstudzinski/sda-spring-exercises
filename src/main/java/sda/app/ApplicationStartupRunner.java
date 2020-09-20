@@ -13,11 +13,15 @@ import sda.app.logger.ILogger;
 public class ApplicationStartupRunner implements CommandLineRunner {
 
   @Autowired
+  @Qualifier(value = "helloLogger")
   private ILogger logger1;
+
   private ILogger logger2;
+
   private ILogger logger3;
 
-  public ApplicationStartupRunner(@Qualifier("heyLogger") ILogger logger3) {
+  //@Autowired
+  public ApplicationStartupRunner(@Qualifier("hiLogger") ILogger logger3) {
     this.logger3 = logger3;
   }
 
@@ -29,7 +33,8 @@ public class ApplicationStartupRunner implements CommandLineRunner {
   }
 
   @Autowired
-  public void setLogger1(ILogger logger2) {
+  @Qualifier("heyLoggerFromConfig")
+  public void setLogger2(ILogger logger2) {
     this.logger2 = logger2;
   }
 }

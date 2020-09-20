@@ -8,7 +8,7 @@ import sda.app.logger.HeyLogger;
 public class Config {
 
   @Bean
-  public HeyLogger heyLogger() {
+  public HeyLogger heyLoggerFromConfig() {
     return new HeyLogger();
   }
 }
