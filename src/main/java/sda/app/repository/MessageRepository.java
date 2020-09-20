@@ -13,18 +13,26 @@ public class MessageRepository {
 
   private List<Message> messages = new ArrayList<>();
 
-  public void create(Message message) {
+  public Message create(Message message) {
     message.setId(id++);
     message.setSendDate(LocalDateTime.now());
     messages.add(message);
-  }
-
-  public Message get(Long id) {
-    final Message message = messages
-        .stream().filter(x -> x.getId().equals(id)).findFirst().orElseThrow();
     return message;
   }
 
+  public Message get(Long id) {
+    final Message message = messages.stream()
+        .filter(x -> x.getId().equals(id))
+        .findFirst().orElseThrow();
+    return message;
+  }
 
+  public List<Message> getAll() {
+    return messages;
+  }
+
+  public void deleteById(Long id) {
+    //TODO
+  }
 
 }
