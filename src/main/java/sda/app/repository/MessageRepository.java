@@ -20,7 +20,7 @@ public class MessageRepository {
     return message;
   }
 
-  public Message get(Long id) {
+  public Message getById(Long id) {
     final Message message = messages.stream()
         .filter(x -> x.getId().equals(id))
         .findFirst().orElseThrow();
@@ -32,7 +32,10 @@ public class MessageRepository {
   }
 
   public void deleteById(Long id) {
-    //TODO
+    messages.stream()
+        .filter(x -> x.getId().equals(id))
+        .findFirst()
+        .ifPresent(x -> messages.remove(x));
   }
 
 }

@@ -1,5 +1,6 @@
 package sda.app.web;
 
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import sda.app.repository.MessageRepository;
 
 @Controller
 @RequestMapping("api")
+@ResponseBody
 public class MessageController {
 
   private MessageRepository messageRepository;
@@ -23,7 +25,8 @@ public class MessageController {
   }
 
   /**
-   * localhost:8080/api/messages
+   * Endpoint do tworzenia wiadomości.
+   * URL: localhost:8080/api/messages
    * JSON z Postmana:
    * {
    *     "consignor": "jan",
@@ -31,11 +34,8 @@ public class MessageController {
    *     "value": "wiadomość 1"
    * }
    * @param message
-   * @return
    */
-  @ResponseBody
-  @RequestMapping(path = "messages",
-      method = RequestMethod.POST,
+  @RequestMapping(path = "messages", method = RequestMethod.POST,
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -45,23 +45,36 @@ public class MessageController {
   }
 
   /**
-   * localhost:8080/api/messages/{id}
+   * Endpoint do pobrania wiadomości po id.
+   * URL: localhost:8080/api/messages/{id}
    * @param id
-   * @return
    */
-  @ResponseBody
-  @RequestMapping(path = "messages/{id}",
-      method = RequestMethod.GET,
+  @RequestMapping(path = "messages/{id}", method = RequestMethod.GET,
       produces = MediaType.APPLICATION_JSON_VALUE)
+  //@ResponseStatus(HttpStatus.OK) // Domyślny status dlatego nadmiarowa linia
   public Message getById(@PathVariable(name = "id") Long id) {
-    return messageRepository.get(id);
+    return messageRepository.getById(id);
   }
 
-  public void getAll() {
-    //TODO
+  /**
+   * Endpoint do pobrania wszystkich wiadomości.
+   * URL: localhost:8080/api/messages
+   */
+  @RequestMapping(path = "messages", method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  //@ResponseStatus(HttpStatus.OK) // Domyślny status dlatego nadmiarowa linia
+  public List<Message> getAll() {
+    return messageRepository.getAll();
   }
 
-  public void deleteById() {
-    //TODO
+  /**
+   * Endpoint do usuwania wiadomości po id.
+   * URL: localhost:8080/api/messages/{id}
+   * @param id
+   */
+  @RequestMapping(path = "messages/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteById(@PathVariable("id") Long id) {
+    messageRepository.deleteById(id);
   }
 }
